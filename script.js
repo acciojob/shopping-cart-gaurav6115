@@ -1,41 +1,34 @@
-//your code here
-var items = document.getElementById("item-name-input");
-var prices = document.getElementById("item-price-input");
+var itemInput = document.getElementById("item-name-input");
+var priceInput = document.getElementById("item-price-input");
 var btn = document.getElementById("add");
 var alertxt = document.getElementById("alert-text");
 
-var table = document.getElementsByTagName("table");
-var row = document.getElementById("row");
-var heading = document.getElementById("total");
+var table = document.getElementById("table");
+var total = document.getElementById("total");
 
-var total = heading.innerHTML;
-
+let pricearr=[];
 function addlist() {
-    var ivalue = items.value;
-    var pvalue = prices.value;
+    var item = itemInput.value;
+    var price = priceInput.value;
     alertxt.innerHTML = "";
-    total += pvalue;
+    let sum = 0;
 
-    if (ivalue && pvalue != "") {
+    if(item !== '' &&  price !== "") {
+        let row = document.createElement("tr");
+        pricearr.push(parseInt(price));
+        row.innerHTML = `<td>${item} </td> <td>${price} </td>`;
+        table.append(row);
 
+        for(let i = 0; i < pricearr.length; i++){
+            sum += pricearr[i];
+        }
+        
+        total.innerText = sum;
 
-        var itemlist = document.createElement("td");
-        itemlist.innerText = ivalue;
-        console.log(itemlist);
-        row.append(itemlist);
-
-        var pricelist = document.createElement("td");
-        pricelist.innerText = pvalue;
-        console.log(pricelist);
-        row.append(pricelist);
-
-
-        items.value = "";
-        prices.value = "";
-
+        itemInput.value = "";
+        priceInput.value = "";
     }
-
-
+    
     else {
         alertxt.innerHTML = "Invalid input should not be accepted.";
     }
